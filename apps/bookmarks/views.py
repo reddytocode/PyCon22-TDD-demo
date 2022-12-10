@@ -1,11 +1,24 @@
 from django.db.models import Q
 from django.utils import timezone
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from apps.bookmarks.models import Bookmark
 from apps.bookmarks.permissions import BookmarkEditPermissions
 from apps.bookmarks.serializers import BookmarkSerializer
+
+
+def _add(a, b):
+    return a + b
+
+
+class AddViewSet(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        return Response({"result": _add(**request.data)}, status=status.HTTP_200_OK)
 
 
 class BookmarksViewSet(viewsets.ModelViewSet):
