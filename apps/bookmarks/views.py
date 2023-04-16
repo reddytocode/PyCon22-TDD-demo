@@ -11,7 +11,7 @@ from apps.bookmarks.serializers import BookmarkSerializer
 
 
 def _add(a, b):
-    return a + b
+    return int(a[0]) + int(b[0])
 
 
 class AddViewSet(APIView):
